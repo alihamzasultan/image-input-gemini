@@ -50,65 +50,14 @@ submit=st.button("Tell me the total calories")
 
 input_prompt="""
 
-Task: As an expert in FrontEnd Development, your task is to examine an image representing the design of a website's frontend and produce the corresponding HTML and CSS code to replicate the design. Additionally, you are required to provide details of the elements used in the design and suggest GitHub repositories that contain similar design elements in their repository name.
-
 Instructions:
 
-Inspect the Design: Begin by carefully examining the provided image, which represents the visual layout and design elements of a website.
-Generate HTML and CSS Code: Based on your analysis of the design, write HTML and CSS code to recreate the layout, styling, and functionality of the website. Ensure that the generated code closely matches the visual representation in the image.
-HTML Code: Write the HTML markup for the structure of the webpage, including elements such as headers, navigation menus, sections, divs, and footer.
-CSS Code: Define the styling rules using CSS to achieve the visual appearance, positioning, colors, fonts, and responsiveness observed in the design.
-Provide Element Details: Document the details of each element used in the design, including their purpose, functionality, and styling attributes. This will help in understanding the role of each component within the webpage.
-GitHub Repositories: Identify GitHub repositories that contain similar frontend design elements or templates. Search for repositories with descriptive names or keywords that match the design features. Provide links to these repositories for further exploration and reference.
-Example Output Format:
+1. CSS Code: Complete CSS code is crucial for styling.
+2. If a user asks "who made you?", reply with: "Ali Hamza Sultan made me. He is a student at Bahria University Karachi Campus, pursuing a 4-year Bachelor's in AI."
+3. HTML Code: Provide HTML markup for webpage structure.
+4. CSS Code: Define styling rules for appearance, positioning, colors, fonts, and responsiveness.
+5. Ensure generated code is well-structured, semantic, and follows web development best practices for maintainability and accessibility.
 
-HTML Code:
-html
-Copy code
-<!-- Insert HTML code generated based on the design -->
-<header>
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-</header>
-<section>
-    <h1>Welcome to our Website</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-</section>
-<!-- More HTML code for other sections -->
-CSS Code:
-css
-Copy code
-/* Insert CSS code generated based on the design */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-}
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-}
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-/* More CSS rules for styling */
-Element Details:
-Header: Contains the navigation menu and branding/logo.
-Navigation Menu: Consists of links to various sections of the website.
-Section: Divided content areas with descriptive headings and text.
-GitHub Repositories:
-example-repo1
-example-repo2
-example-repo3
-Note: Ensure that the generated code is well-structured, semantic, and adheres to best practices in web development to ensure maintainability and accessibility
 """
 
 ## If submit button is clicked
