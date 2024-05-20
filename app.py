@@ -7,6 +7,10 @@ import streamlit as st
 import os
 import google.generativeai as genai
 from PIL import Image
+from io import BytesIO
+import base64
+import cv2
+
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
@@ -33,11 +37,28 @@ def input_image_setup(uploaded_file):
     else:
         raise FileNotFoundError("No file uploaded")
     
+def get_image_from_camera():
+    st.write("Click below to take a picture:")
+    if st.button("Open Camera"):
+        cap = cv2.VideoCapture(0)
+        ret, frame = cap.read()
+        cap.release()
+        if ret:
+            # Convert the image to bytes
+            img = Image.fromarray(frame)
+            buffer = BytesIO()
+            img.save(buffer, format="JPEG")
+            data = base64.b64encode(buffer.getvalue()).decode()
+            st.image(img, caption="Captured Image", use_column_width=True)
+            return data
+        else:
+            st.write("Failed to open camera. Please try again.")
+    
 ##initialize our streamlit app
 
 st.set_page_config(page_title="Gemini Health App")
 
-st.header("Gemini Health App")
+st.header("Gemini")
 input=st.text_input("Input Prompt: ",key="input")
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 image=""   
@@ -45,26 +66,28 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
+camera_data = get_image_from_camera()
 
-submit=st.button("Tell me the total calories")
+submit=st.button("do EDA")
 
 input_prompt="""
 
 Instructions:
 
-1. CSS Code: Complete CSS code is crucial for styling.
-2. If a user asks "who made you?", reply with: "Ali Hamza Sultan made me. He is a student at Bahria University Karachi Campus, pursuing a 4-year Bachelor's in AI."
-3. HTML Code: Provide HTML markup for webpage structure.
-4. CSS Code: Define styling rules for appearance, positioning, colors, fonts, and responsiveness.
-5. Ensure generated code is well-structured, semantic, and follows web development best practices for maintainability and accessibility.
-
+analyse the dataset
 """
 
 ## If submit button is clicked
 
 if submit:
-    image_data=input_image_setup(uploaded_file)
-    response=get_gemini_repsonse(input_prompt,image_data,input)
-    st.subheader("The Response is")
-    st.write(response)
-
+    if camera_data is None and uploaded_file is None:
+        st.write("Please upload an image or capture one from the camera.")
+    elif uploaded_file is not None:
+        image_data=input_image_setup(uploaded_file)
+        response=get_gemini_repsonse(input_prompt,image_data,input)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        response=get_gemini_repsonse(input_prompt,[{"mime_type": "image/jpeg", "data": camera_data}],input)
+        st.subheader("The Response is")
+        st.write(response)
