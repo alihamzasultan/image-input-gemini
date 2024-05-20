@@ -6,4 +6,4 @@ matplotlib
 seaborn
 scikit-learn
 opencv-python
-dotenv
+dotenv=="0.0.5"
